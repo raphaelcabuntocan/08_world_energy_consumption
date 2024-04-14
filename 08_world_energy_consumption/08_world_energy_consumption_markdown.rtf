@@ -1,0 +1,354 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red0\green0\blue0;
+}
+{\*\expandedcolortbl;;\cssrgb\c0\c1\c1;\cssrgb\c100000\c100000\c99985\c0;\cssrgb\c0\c0\c0;
+}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{circle\}}{\leveltext\leveltemplateid1\'01\uc0\u9702 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28300\viewh16580\viewkind0
+\pard\tx0\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs20 \cf2 \cb3 World Energy Consumption Analysis\
+\
+March 19, 2024\
+The lack of good data and the lack of importance of formerly conceptualized analyses, that is, in the correlation of innovation, level of education, and the economy; world commodity trade; philippine trade data; and US patent data has been a challenge for the past two days. Last night, I was able to find good data for a very relevant analysis, not only to me personally as a mechanical engineer but to the world as well.\
+\
+Energy drives the progress of our world. Our ability as a species to harness more and more sourcces of energy allow us to transcend our limitations brought about by technological boundaries. Furthermore, the magnitude and type of source of energy harvested and used by a civilization  is one of the major indicators of its level of sophistication and advancement. Therefore, an analysis of energy source and consumption opens up a lens that enables us to look deep into the condition of nations, especially, economically.\
+\
+\'95 General Objective: This predictive analysis aims to describe, compare, and generate foresight regarding the energy consumption of countries. \
+\
+\
+#data source: https://www.kaggle.com/datasets/pralabhpoudel/world-energy-consumption\
+\
+\
+09:25 \
+Creating the table in PostgreSQL has been challenging since there are 129 columns, each of which should be typed together with their data types. I tried using Python Pandas to help me identify the data types but the truncation of the output has been a limitation. Finally, I was able to use Google BigQuery\'92s auto-detect function to generate the data types. Now, I just have to copy them manually to Postgres.\
+\
+11:35\
+Finished creating the table columns in PostgreSQL. I will put in the values after having lunch.\
+\
+13:57\
+Got back. Will be importing data now.\
+\
+14:12\
+Data successfully loaded in the table! Primary key has been included already as well. Will proceed first with the objectives and do revisions.\
+\
+17:27 \
+I got sidetracked, though not really. I attended to some important things for my job application as well. I\'92m going to specify the objectives.\
+\
+17:58\
+finished conceptualizing the specific objectives:\
+\
+\'95 Specific Objectives: \
+1. Provide a description of the following:\
+	1.1 energy consumption per country, including:\
+		1.1.1 amount per energy source,\
+		1.1.2 proportion per energy source (renewable and non-renewable), specifically:\
+			1.1.2.1 specific renewable energy sources, and\
+			1.1.2.2 specific non-renewable energy sources\
+\
+	1.2 energy consumption per country per capita\
+		1.2.1 amount per energy source,\
+		1.2.2 proportion per energy source (renewable and non-renewable), specifically:\
+			1.2.2.1 specific renewable energy sources, and\
+			1.2.2.2 specific non-renewable energy sources\
+\
+	1.3 proportion of energy consumption per country with respect to global consumption in terms of:\
+		1.3.1 total energy consumption\
+		1.3.2 energy source (renewable and non-renewable)\
+			1.3.2.1 specific renewable energy source\
+			1.3.2.2 specific non-renewable energy source\
+\
+- - kind of \'93Group By\'94 countries\
+\
+2. Provide rankings of countries according to:\
+	2.1 energy consumption in terms of:\
+		2.1.1 energy source (renewable and non-renewable)\
+			2.1.1.1 specific energy source for renewables\
+			2.1.1.2 specific energy source for non-renewables\
+	2.2 energy source proportion in terms of:\
+		2.2.1 energy source (renewable and non-renewable)\
+			2.2.1.1 specific energy source for renewables\
+			2.2.1.2 specific energy source for non-renewables\
+\
+3. Determine the correlation of the following:\
+	3.1 energy consumption of countries and GDP\
+	3.2 energy consumption of countries and GDP per capita\
+	3.3 energy consumption and population\
+\
+4. Explore insights that could be derived from GDP of countries, their energy consumptions and the percentage of renewables in their energy mix.\
+\
+5. Create projections of energy usage for the next ten years using regression.\
+\
+\
+\
+March 20, 2024\
+10:47\
+Perform EDA\
+I instead focused on how to deal with objective 5. \
+Previewed machine learning. I hope the data fits with linear regression.\
+Lunch break\
+11:31\
+\
+12:54\
+Perform EDA\
+15:25\
+\
+17:38\
+Perform calculations and aggregations to answer objective 1. Need to explore the data even further, like I still don\'92t know that the twh and cons mean in the column headers.\
+\'95 twh = Terrawatt-hour\
+\'95 pct might mean percentage\
+\'95 the negative values in the columns containing change might mean a negative change, like a decrease compared to recent year\
+\'95 through computations, the pct indeed is the change in the consumption with respect to the previous year. The twh is the change in the consumption as well. These could be calculated from the consumption columns themselves.\
+\
+identify the statistical procedures necessary to accomplish each of the objectives\
+18:00\
+\
+\
+\
+March 21, 2024\
+10:33\
+- the types of energy featured are:\
+biofuel\
+coal\
+fossil\
+gas\
+hydro\
+low_carbon\
+nuclear\
+oil\
+other_renewables\
+renewables\
+solar\
+wind\
+\
+other columns that are not energy sources:\
+carbon\
+electricity\
+energy\
+greehouse_gas_emissions\
+net_elec\
+per_capita_electricity\
+primary_energy\
+\
+11:36\
+checking if the share_elec columns total to 100%\
+was able to identify the individual sources of energy: coal, gas, hydro, nuclear, oil, other renewables, solar, wind\
+12:17\
+\
+14:14\
+create a table for the raw amount of energy of each energy source to answer obj 1.1.1\
+create a table each for the data of renewable and non-renewable sources of energy. From then data from them cou\
+if an overall analysis is necessary, then the two could be joined so that classifications whether they are renewable or non-renewable is always clear\
+the other data that are not energy sources nor indices are to be compiled on another table as well.\
+Analyses will be faster right after. Consult the objectives for the procedures to be done after the creation of the \'93renewable\'94, \'93non-renewable\'94, an \'93other_info\'94 tables\
+Anyway, time to plan it now\
+\
+1.1 just query the amount. Choose the necessary columns and that\'92s it. \
+\
+1.1.2 take the proportion of the renewables as well as of the non-renewables in the total energy mix per country\
+- follow this procedure for 1.1.2.1 and 1.1.2.2\
+\
+1.2 repeat the procedure for 1 but just include the country\'92s population\
+\
+- - remember that the goal is to create tables that could be used for: (1) visualization (tableau, and/or (2) deeper analyses (python)\
+\
+1.3 check this one first if it\'92s good for visualization. might be too small\
+\
+2. Use the rank function\
+2.1 for the actual amount\
+2.2 for the percentage in the country\'92s overall mix\
+\
+3. Analysis for python na ito. Try to do viz din in python as well\
+\
+4. For python as well.\
+\
+6. Python, linear regression. Check if it fits the test data well. So perform light ML?\
+\
+Are separate tables for the renewables really necessary or I just have to store a list of the columns that fall under them? I think yes, I don\'92t have to create another table since it\'92s already clean\
+Created lists of columns for each of the classifications (renewable, non-renewable, others)\
+16:36\
+\
+Specific Ojectives v1.1\
+\
+NOTE: Include SUPPLY and DEMAND\
+\
+\pard\pardeftab720\partightenfactor0
+\cf4 \cb1 \expnd0\expndtw0\kerning0
+1. Provide a description of the following:\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.1 energy consumption per country, including:\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.1.1 amount of energy per energy source,\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.1.1.1 specific renewable energy sources, and\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.1.1.2 specific non-renewable energy sources\
+\'a0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.1.2 proportion per energy source (renewable and non-renewable), specifically:\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.1.2.1 specific renewable energy sources, and\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.1.2.2 specific non-renewable energy sources\
+\'a0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.2 energy consumption per country per capita\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.2.1 amount of energy per energy source,\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.2.1.1 specific renewable energy sources, and\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.2.1.2 specific non-renewable energy sources\
+\'a0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.2.2 proportion per energy source (renewable and non-renewable), specifically:\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.2.2.1 specific renewable energy sources, and\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.2.2.2 specific non-renewable energy sources\
+\'a0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.3 proportion of energy consumption per country with respect to global consumption in terms of:\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.3.1 total energy consumption\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.3.1.1 specific renewable energy sources, and\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.3.1.2 specific non-renewable energy sources\
+\'a0\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.3.2 energy source (renewable and non-renewable)\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.3.2.1 specific renewable energy source\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 1.3.2.2 specific non-renewable energy source\
+\'a0\
+- - kind of \'93Group By\'94 countries\
+\'a0\
+2. Provide comparative description of countries according to rankings:\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 2.1 energy consumption in terms of:\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 2.1.1 energy source (renewable and non-renewable)\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 2.1.1.1 specific energy source for renewables\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 2.1.1.2 specific energy source for non-renewables\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 2.2 energy source proportion in terms of:\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 2.2.1 energy source (renewable and non-renewable)\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 2.2.1.1 specific energy source for renewables\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 2.2.1.2 specific energy source for non-renewables\
+\'a0\
+3. Identify time-series trends regarding:\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 3.1 energy consumption in terms of:\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 3.1.1 energy source (renewable and non-renewable)\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 3.1.1.1 specific energy source for renewables\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 3.1.1.2 specific energy source for non-renewables\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 3.2 energy source proportion in terms of:\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 3.2.1 energy source (renewable and non-renewable)\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 3.2.1.1 specific energy source for renewables\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 3.2.1.2 specific energy source for non-renewables\
+\'a0\
+4. Determine the correlation of the following:\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 4.1 energy consumption of countries and GDP\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 4.2 energy consumption of countries and GDP per capita\
+\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 4.3 energy consumption and population\
+\'a0\
+5. Explore insights that could be derived from the GDP of countries, their energy consumptions, and the percentage of renewables in their energy mix.\
+\'a0\
+6. Create projections of energy usage for the next ten years using regression.\
+\pard\tx0\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \cb3 \kerning1\expnd0\expndtw0 \
+\
+\
+\
+March 22, 2024\
+8:58\
+make separate queries for easier running and then combine them all after the entire querying. Place \'93part\'94 in the file name so as not to confuse them with versions.\
+10:40\
+\
+11:34\
+checking if the energy demand is equal to the total twh of the energy sources\
+12:00\
+\
+14:00\
+performed more eda.\
+According to the data set source: \expnd0\expndtw0\kerning0
+The column\'a0electricity_share_energy\'a0(electricity as a share of primary energy) was added to the dataset.\kerning1\expnd0\expndtw0  \
+\pard\tx0\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sa160\partightenfactor0
+\ls1\ilvl0\cf2 so far, the classifications have become 2: (1)renewability of energy source and (2) if the energy is supply or demand\
+\pard\tx0\tx0\tx0\tx566\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sa160\partightenfactor0
+\ls1\ilvl0\cf2 after confirming if the total of the consumption is equal to electricity_demand, write down all the information that should be prepared for each country.\
+\pard\tx0\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sa160\partightenfactor0
+\ls1\ilvl0\cf2 The specific objectives must be revised, including the supply and demand nature of the energy.\
+\pard\tx0\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\sa160\partightenfactor0
+\cf2 \
+To summarize, so far, the relationship that I'm sure of is that the total of the output of the individual energy sources is equal to the energy generated\
+I just realized that it's not that as necessary to identify the source of energy consumed compared to knowing the renewability of the source of the energy produced.\
+Therefore, I may proceed with the analysis that involves the particulars of the renewability of the energy source when it comes to production only\
+\
+What are the data that should be prepared for each country?\
+1. amount of energy (total, according to renewability, supply and demand, type of energy source for supply)\
+2. percentage of energy (according to renewability, supply and demand, type of energy source for supply)\
+3. world ranking (all that is in 1 and in 2)\
+4. trends in 1 and in 2\
+\
+\expnd0\expndtw0\kerning0
+- - Note: revise the specific objectives 1.1 and include the analysis of supply and demand\
+- - Note: The analysis is going to involve electric energy only. The title should be revised.\
+\
+March 25, 2024\
+16:43\
+ - - another table needs to be made for the statistics for world total, including but not limited to: total amount of energy produced worldwide, specific energy sources like hydro, coal, etc, and then for renewables and non-renewables.\
+- - so it seems like the tables to be done will be the table of the numerator values (values per country) and then the denominator values (values for the world). Somehow, they are not necessarily because of the numerator or denominator but the scope of each value or aggregation (country level vs. global level). Include proportions as well.\
+\
+It seems like I\'92m already done with the table for obj 1.1 and 1.2.\
+create more columns showing the rank of the values for obj 2. The median rank should be another query that will make another table.\
+I added more columns: net electrical supply vs demand percentage rank\
+\pard\tx0\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \kerning1\expnd0\expndtw0 \
+March 26, 2024\
+9:48\
+things to include in the new table: \
+- total energy produced per year, per energy source, according to renewability\
+- \
+\
+- - I just noticed that I have missed the per capita. Will do the queries now. The following are needed: amount of energy per capita, rank of amount of energy per capita\
+\
+\
+April 3, 2024\
+11:40\
+finished the per capita columns of sql_query_part_3_v2.sql. \
+this means that the queries for the first table is done!\
+\
+12:27\
+create a table that shows the total consumption per energy source. this will be the second table\
+conduct the solutions using partition by\
+\
+12:45\
+the world table query is done\
+\
+\
+\
+April 5, 2024\
+11:05\
+1.3 could be accomplished with more queries in table 1\
+\
+13:25\
+tried to find ways to use postgresql to make tables quickly. with the number of columns that I have, it\'92s difficult to type all of the tables\
+\
+13:43\
+having exhausted all the ways that I could think of and search, and considering the number of rows, I decided to just use pandas in python to continue my analysis.\
+\
+16:00 \
+I did not succeed in using python. I was able to use postgresql to complete my query using over and partition by\
+\
+\
+April 6, 2024\
+13:10\
+I completed the queries for objectives 1 and 2. Will proceed to python for the third.\
+\
+13:26\
+starting python jupyter notebook in vscode for the third \
+\
+\
+\
+April 10, 2024\
+20:43\
+Plan:\
+\
+Objective: Conduct predictive analyses using linear regression in Python\
+Tool: Python\
+1. Use SciPy\'92s Pearson\'92s r for the fourth objective\
+2. Create a for loop for that\
+3. Try to do linear regression with one of the columns. For example, the renewable energy sources of a country. x is time, y is the amount of energy from renewable sources.\
+4. Try to test the fit. If the fit is low, don\'92t proceed since it will take too much time to fit since mlr should probably be used. We do not have the other variables to use for the LR\
+5. Create a for loop that does linear regression for each country.\
+6. Create a for loop that does the checking for each country. It should alert you of low mean R-squared coefficient,\
+7. Create these regressions and checking for each of the columns.\
+\
+Objective: Create an interactive dashboard for all of the objectives specified in the Specific Objectives\
+Tool: Tableau Public\
+6. Create visualizations, one for each objective\
+\
+Objective: Create a report slide deck for the summary of findings/conclusions\
+Tool: Keynote\
+7. Create a slide deck for the summary of findings\
+}
